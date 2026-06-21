@@ -1,11 +1,10 @@
 import React from 'react'
-import { Route, Routes} from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import Header from './Components/Header'
-import Hero from './Components/Hero'
-import ProductCards from './Components/ProductCards'
 import Home from './Pages/Home'
 import ProductDetails from './Pages/ProductDetails'
-
+import MyCart from './Pages/MyCart'
+import Footer from './Components/Footer'
 
 export default function App() {
   return (
@@ -14,7 +13,9 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path="/MyCart" element={<MyCart />} />
       </Routes>
+      <Footer />
     </>
   );
 }

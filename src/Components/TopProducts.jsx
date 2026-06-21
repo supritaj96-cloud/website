@@ -5,8 +5,8 @@ export default function TopProducts() {
   return (
     <div>
 
-        <h3 className="text-2xl text-center">Top Products</h3>
-        <ProductCards/>
+        <h3 className="text-2xl text-center"></h3>
+  
     </div>
   )
 }

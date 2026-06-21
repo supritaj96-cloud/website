@@ -1,10 +1,7 @@
 import React from "react";
- import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import logo from "../assets/Blinkit-logo.svg";
- 
-
- function Header() {
+function Header() {
 
     
     return (
@@ -15,7 +12,8 @@ import logo from "../assets/Blinkit-logo.svg";
         
         
             <div className="min-w-[120px] flex items-center">
-                <img src={logo} alt="Blinkit Logo" className="h-10" />
+                <span className="text-2xl font-black tracking-tight text-[#facc15]">blink</span>
+                <span className="text-2xl font-black tracking-tight text-[#0c831f]">it</span>
             </div>
 
             <div className="w-px h-[50px] bg-[#e5e5e5]" />
@@ -35,13 +33,13 @@ import logo from "../assets/Blinkit-logo.svg";
             </div>
             
             <Link to="/login">
-                <button className="px-5 py-2 text-[18px] font-medium text-gray-700">
+                <button className="min-w-[120px] rounded-[8px] border border-[#d1d5db] bg-white px-5 py-2 text-[15px] font-semibold text-[#111827] shadow-sm transition duration-200 hover:border-[#0c831f] hover:bg-[#f7fcf7] hover:text-[#0c831f]">
                     Login
                 </button>
             </Link>
 
             <Link to="/MyCart">
-                <button className="min-w-[120px] rounded-[8px] bg-[#0c831f] px-[18px] py-[14px] text-[15px] font-semibold text-white border-none cursor-pointer">
+                <button className="min-w-[120px] rounded-[8px] bg-[#0c831f] px-5 py-2 text-[15px] font-semibold text-white border-none cursor-pointer transition duration-200 hover:bg-[#0b6f1b]">
                     🛒My Cart
                 </button>
             </Link>

@@ -5,19 +5,25 @@ import 'slick-carousel/slick/slick-theme.css';
 
 const slides = [
   {
-    title: 'Fresh Style For Every Day',
-    subtitle: 'Explore hand-picked products made for comfort, quality, and modern living.',
-    image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=80',
+    title: 'Garden-Fresh Greens',
+    subtitle: 'Crisp, farm-fresh greens for every healthy meal.',
+
+    image: 'https://plus.unsplash.com/premium_photo-1664302148512-ddea30cd2a92?q=80&w=869&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },
   {
-    title: 'New Arrivals Are Here',
-    subtitle: 'Upgrade your collection with trending picks and limited-time deals.',
-    image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1600&q=80',
+    title: 'Juicy Daily Picks',
+    subtitle: 'Sweet, juicy picks delivered fresh to your door.',
+
+    image: 'https://images.unsplash.com/photo-1628689469838-524a4a973b8e?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },
   {
-    title: 'Shop Smart, Live Better',
-    subtitle: 'Find everyday essentials with premium quality and easy checkout.',
-    image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1600&q=80',
+    title: 'Wake-Up Favorites',
+
+
+    subtitle: 'Quick breakfast and instant meals to fuel your day in a flash',
+
+
+    image: 'https://plus.unsplash.com/premium_photo-1733259677103-fbb5d70ef830?q=80&w=970&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },
 ];
 
