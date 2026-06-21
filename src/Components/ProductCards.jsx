@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function ProductCards() {
   const cards = [
@@ -46,7 +47,11 @@ export default function ProductCards() {
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {cards.map((card) => (
-            <div key={card.id} className="overflow-hidden rounded-md border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+            <Link
+              key={card.id}
+              to={`/product/${card.id}`}
+              className="overflow-hidden rounded-md border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+            >
               <img className="h-52 w-full object-cover" src={card.image} alt={card.name} />
 
               <div className="p-5">
@@ -58,13 +63,16 @@ export default function ProductCards() {
                 <p className="mt-3 min-h-12 text-sm leading-6 text-gray-600">{card.description}</p>
 
                 <div className="mt-5 flex items-center justify-between">
-                  <p className="text-xl font-bold text-gray-900">₹{card.amount}</p>
-                  <button className="rounded-md bg-gray-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-gray-700">
+                  <p className="text-xl font-bold text-gray-900">Rs. {card.amount}</p>
+                  <button
+                    type="button"
+                    className="rounded-md bg-gray-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-gray-700"
+                  >
                     Add to Cart
                   </button>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
