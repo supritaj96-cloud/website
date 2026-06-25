@@ -83,10 +83,17 @@ export default function useCart() {
     saveCart(updatedCart);
   };
 
+  const clearCart = () => {
+    const emptyCart = {};
+    setCart(emptyCart);
+    saveCart(emptyCart);
+  };
+
   return {
     cart,
     addToCart,
     removeFromCart,
+    clearCart,
     getProductQuantity,
   };
 }

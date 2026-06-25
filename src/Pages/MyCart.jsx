@@ -1,89 +1,71 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { MdLockOutline, MdShoppingCart } from 'react-icons/md';
 import useCart from '../hooks/useCart';
 
 export default function MyCart() {
   const { cart, addToCart, removeFromCart } = useCart();
   const cartItems = Object.values(cart);
-  const totalAmount = cartItems.reduce((sum, item) => sum + item.amount * item.quantity, 0);
+  const subtotal = cartItems.reduce((total, item) => total + item.amount * item.quantity, 0);
+  const deliveryFee = subtotal > 0 ? 25 : 0;
+  const total = subtotal + deliveryFee;
 
-  return (
-    <section className="bg-gray-50 px-6 py-14">
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">My Cart</h1>
-            <p className="mt-2 text-gray-600">Review your items, update quantities, and proceed to checkout.</p>
-          </div>
-          <Link
-            to="/"
-            className="inline-flex items-center rounded-md border border-gray-300 bg-white px-5 py-2 text-sm font-semibold text-gray-900 transition hover:bg-gray-100"
-          >
-            Back to Shop
+  if (cartItems.length === 0) {
+    return (
+      <section className="bg-gray-50 px-4 py-16">
+        <div className="mx-auto max-w-3xl rounded-md bg-white p-8 text-center shadow-sm">
+          <MdShoppingCart className="mx-auto text-5xl text-green-600" />
+          <h1 className="mt-4 text-3xl font-bold text-gray-950">Your cart is empty</h1>
+          <p className="mt-2 text-gray-600">Add fresh products before checkout.</p>
+          <Link to="/" className="mt-6 inline-block rounded-md bg-green-600 px-6 py-3 font-bold text-white transition hover:bg-green-700">
+            Shop products
           </Link>
         </div>
+      </section>
+    );
+  }
 
-        {cartItems.length === 0 ? (
-          <div className="rounded-md bg-white p-10 text-center shadow-sm">
-            <p className="text-lg font-semibold text-gray-900">Your cart is empty.</p>
-            <p className="mt-3 text-gray-600">Add items from the product page to view them here.</p>
-            <Link
-              to="/"
-              className="mt-6 inline-flex rounded-md bg-gray-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-gray-700"
-            >
-              Continue Shopping
-            </Link>
+  return (
+    <section className="bg-gray-50 px-4 py-10">
+      <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[1fr_360px]">
+        <div className="rounded-md bg-white p-5 shadow-sm">
+          <div className="flex items-center gap-2 border-b border-gray-100 pb-4">
+            <MdLockOutline className="text-xl text-green-600" />
+            <h1 className="text-2xl font-bold text-gray-950">My Cart</h1>
           </div>
-        ) : (
-          <div className="space-y-6">
+
+          <div className="divide-y divide-gray-100">
             {cartItems.map((item) => (
-              <div key={item.id} className="rounded-md bg-white p-6 shadow-sm md:grid md:grid-cols-[120px_minmax(240px,_1fr)_180px] md:items-center md:gap-6">
-                <div className="overflow-hidden rounded-md bg-gray-100">
-                  <img className="h-32 w-full object-cover" src={item.image} alt={item.name} />
+              <div key={item.id} className="flex gap-4 py-4">
+                <img src={item.image} alt={item.name} className="h-20 w-20 rounded-md object-cover" />
+                <div className="min-w-0 flex-1">
+                  <h2 className="font-bold text-gray-950">{item.name}</h2>
+                  <p className="mt-1 text-sm text-gray-500">Rs. {item.amount}</p>
+                  <p className="mt-2 text-sm font-bold text-gray-900">Rs. {item.amount * item.quantity}</p>
                 </div>
-
-                <div className="mt-4 md:mt-0">
-                  <h2 className="text-xl font-semibold text-gray-900">{item.name}</h2>
-                  <p className="mt-2 text-sm text-gray-600">{item.quantity} units</p>
-                  <p className="mt-2 text-sm font-semibold text-gray-900">Rs. {item.amount}</p>
-                </div>
-
-                <div className="mt-4 flex items-center justify-between rounded-md border border-gray-200 bg-gray-50 p-3 md:mt-0">
-                  <button
-                    type="button"
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-md bg-white text-xl font-bold text-gray-900 transition hover:bg-gray-100"
-                    onClick={() => removeFromCart(item.id)}
-                  >
-                    -
-                  </button>
-                  <span className="mx-4 min-w-[2rem] text-center text-lg font-semibold text-gray-900">{item.quantity}</span>
-                  <button
-                    type="button"
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-md bg-white text-xl font-bold text-gray-900 transition hover:bg-gray-100"
-                    onClick={() => addToCart(item)}
-                  >
-                    +
-                  </button>
+                <div className="flex h-10 items-center overflow-hidden rounded-md border border-gray-300">
+                  <button className="h-full w-9 font-bold" type="button" onClick={() => removeFromCart(item.id)}>-</button>
+                  <span className="min-w-10 text-center text-sm font-bold">{item.quantity}</span>
+                  <button className="h-full w-9 font-bold" type="button" onClick={() => addToCart(item)}>+</button>
                 </div>
               </div>
             ))}
+          </div>
+        </div>
 
-            <div className="rounded-md bg-white p-6 shadow-sm">
-              <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                <div>
-                  <p className="text-sm text-gray-600">Subtotal</p>
-                  <p className="text-3xl font-bold text-gray-900">Rs. {totalAmount}</p>
-                </div>
-                <button
-                  type="button"
-                  className="inline-flex rounded-md bg-green-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-green-800"
-                >
-                  Proceed to Checkout
-                </button>
-              </div>
+        <aside className="h-fit rounded-md bg-white p-5 shadow-sm">
+          <h2 className="text-lg font-bold text-gray-950">Bill details</h2>
+          <div className="mt-4 space-y-3 text-sm text-gray-700">
+            <div className="flex justify-between"><span>Subtotal</span><span>Rs. {subtotal}</span></div>
+            <div className="flex justify-between"><span>Delivery fee</span><span>Rs. {deliveryFee}</span></div>
+            <div className="border-t border-gray-100 pt-3 flex justify-between text-base font-bold text-gray-950">
+              <span>Total</span><span>Rs. {total}</span>
             </div>
           </div>
-        )}
+          <Link to="/checkout" className="mt-5 flex w-full items-center justify-center gap-2 rounded-md bg-green-600 px-5 py-3 font-bold text-white transition hover:bg-green-700">
+            <MdLockOutline /> Checkout securely
+          </Link>
+        </aside>
       </div>
     </section>
   );
