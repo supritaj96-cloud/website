@@ -1,10 +1,22 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import useCart from '../hooks/useCart';
 
 export default function ProductCards() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { addToCart } = useCart();
+  const isLoggedIn = Boolean(localStorage.getItem('blinkit_user'));
+
+  const handleAddToCart = (card) => {
+    if (!isLoggedIn) {
+      navigate('/login', { state: { from: location } });
+      return;
+    }
+
+    addToCart(card);
+    navigate('/cart');
+  };
   const cards = [
     {
       id: 1,
@@ -182,7 +194,7 @@ export default function ProductCards() {
               key={card.id}
               className="overflow-hidden rounded-[24px] border border-gray-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg"
             >
-              <div className="cursor-pointer" onClick={() => navigate(`/product/${card.id}`)}>
+              <div className="cursor-pointer" onClick={() => navigate(`/products/${card.id}`)}>
                 <img className="h-64 w-full object-cover" src={card.image} alt={card.name} />
 
                 <div className="p-5">
@@ -201,10 +213,7 @@ export default function ProductCards() {
                   <button
                     type="button"
                     className="rounded-md bg-gray-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-gray-700"
-                    onClick={() => {
-                      addToCart(card);
-                      navigate('/MyCart');
-                    }}
+                    onClick={() => handleAddToCart(card)}
                   >
                     Add to Cart
                   </button>

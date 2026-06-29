@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+import { API_PREFIX } from '../apiConfig'
 
 export default function Signup({ setCurrentUser }) {
   const [form, setForm] = useState({
@@ -31,7 +30,7 @@ export default function Signup({ setCurrentUser }) {
     try {
       setIsSubmitting(true)
 
-      const response = await fetch(`${API_BASE}/api/customers/register`, {
+      const response = await fetch(`${API_PREFIX}/customers/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),

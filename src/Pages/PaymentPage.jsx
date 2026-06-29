@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { MdLockOutline, MdPayment } from 'react-icons/md';
 import useCart from '../hooks/useCart';
-
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+import { API_PREFIX } from '../apiConfig';
 const CHECKOUT_STORAGE_KEY = 'blinkit_checkout';
 const USER_STORAGE_KEY = 'blinkit_user';
 
@@ -64,7 +63,7 @@ export default function PaymentPage() {
       }
 
       if (checkoutData) {
-        await fetch(`${API_BASE}/api/customers/${user.id}`, {
+        await fetch(`${API_PREFIX}/customers/${user.id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -74,7 +73,7 @@ export default function PaymentPage() {
         });
       }
 
-      const razorpayOrderResponse = await fetch(`${API_BASE}/api/payments/razorpay/order`, {
+      const razorpayOrderResponse = await fetch(`${API_PREFIX}/payments/razorpay/order`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -110,7 +109,7 @@ export default function PaymentPage() {
         },
         handler: async (response) => {
           try {
-            const verifyResponse = await fetch(`${API_BASE}/api/payments/razorpay/verify`, {
+            const verifyResponse = await fetch(`${API_PREFIX}/payments/razorpay/verify`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({

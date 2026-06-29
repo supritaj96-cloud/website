@@ -115,20 +115,44 @@ export default function Header({ isLoggedIn, setCurrentUser, currentUser }) {
               <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">Deliver to</p>
               <p className="text-sm font-bold text-gray-950">My location</p>
             </div>
-            <div className="grid grid-cols-2 gap-3">
-              <Link
-                to="/login"
-                className="h-11 rounded-md border border-gray-200 text-sm font-bold text-gray-900"
-              >
-                Login
-              </Link>
-              <Link
-                to="/cart"
-                className="h-11 rounded-md bg-green-600 text-sm font-bold text-white"
-              >
-                My Cart{cartCount > 0 ? ` (${cartCount})` : ''}
-              </Link>
-            </div>
+            {isLoggedIn ? (
+              <div className="grid gap-3">
+                <p className="rounded-md border border-gray-200 px-3 py-3 text-sm font-semibold text-gray-900">
+                  Hi, {currentUser?.name || 'Customer'}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleLogout();
+                    setIsMenuOpen(false);
+                  }}
+                  className="h-11 rounded-md border border-gray-200 bg-white text-sm font-bold text-gray-900"
+                >
+                  Logout
+                </button>
+                <Link
+                  to="/cart"
+                  className="h-11 rounded-md bg-green-600 text-sm font-bold text-white flex items-center justify-center"
+                >
+                  My Cart{cartCount > 0 ? ` (${cartCount})` : ''}
+                </Link>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 gap-3">
+                <Link
+                  to="/login"
+                  className="h-11 rounded-md border border-gray-200 text-sm font-bold text-gray-900 flex items-center justify-center"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/signup"
+                  className="h-11 rounded-md bg-white border border-gray-200 text-sm font-bold text-gray-900 flex items-center justify-center"
+                >
+                  Signup
+                </Link>
+              </div>
+            )}
           </div>
         )}
       </div>
